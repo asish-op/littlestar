@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/clean-next.js",
+    "prebuild": "node -e \"const fs=require('fs');try{fs.rmSync('.next',{recursive:true,force:true});console.log('[prebuild] Removed .next directory to avoid stale build artifacts.')}catch(e){console.warn('[prebuild] Could not remove .next directory:',e.message)}\"",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
