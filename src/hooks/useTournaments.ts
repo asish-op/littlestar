@@ -1,0 +1,41 @@
+// src/hooks/useTournaments.ts
+
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Tournament } from '../types/tournaments.type';
+import { asArray } from '../utils/apiResponse';
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+const useTournaments = (token: string | null) => {
+  const [tournaments, setTournaments] = useState<Tournament[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const headers = {
+    'Authorization': `Bearer ${token}`
+  };
+
+  const fetchTournaments = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await axios.get(`${API_URL}/tournaments`, { headers });
+      setTournaments(asArray<Tournament>(response.data));
+    } catch (err: any) {
+      console.error('Error fetching tournaments:', err);
+      setError(err.response?.data?.error || err.message || 'Failed to load tournaments');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTournaments();
+  }, [token]);
+
+  return { tournaments, loading, error, fetchTournaments, setTournaments };
+};
+
+export default useTournaments;
