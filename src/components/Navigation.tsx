@@ -11,6 +11,8 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   
   const logoUrl = aboutData?.logo || "https://i.ibb.co/JWPpTbt9/hlssa-optimized-1000.png";
+  const phoneRaw = aboutData?.contact || "+91 79939 94704";
+  const telHref = `tel:${phoneRaw.replace(/\s+/g, "")}`;
   
   const links = [
     { href: "/", label: "Home" },
@@ -33,7 +35,7 @@ export default function Navigation() {
           >
             <img 
               src={logoUrl} 
-              alt="HLSSA Logo" 
+              alt="Little Stars Football Academy Logo" 
               className="h-[40px] w-[56px] sm:h-[46px] sm:w-[64px] md:h-[68px] md:w-[94px] object-contain"
               onError={(e) => {
                 e.currentTarget.src = "https://i.ibb.co/JWPpTbt9/hlssa-optimized-1000.png";
@@ -50,7 +52,7 @@ export default function Navigation() {
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
 
-          <div className="hidden md:flex gap-6 lg:gap-8">
+          <div className="hidden md:flex items-center gap-6 lg:gap-8">
             {links.map((link) => (
               <Link 
                 key={link.href} 
@@ -62,6 +64,12 @@ export default function Navigation() {
                 {link.label}
               </Link>
             ))}
+            <a
+              href={telHref}
+              className="rounded-full bg-emerald-600 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-emerald-700"
+            >
+              Call Now
+            </a>
           </div>
         </div>
 
@@ -82,6 +90,13 @@ export default function Navigation() {
                   {link.label}
                 </Link>
               ))}
+              <a
+                href={telHref}
+                onClick={() => setIsOpen(false)}
+                className="block rounded-lg bg-emerald-600 px-3 py-2 text-center text-sm font-bold text-white transition-colors hover:bg-emerald-700"
+              >
+                Call Now
+              </a>
             </div>
           </div>
         )}

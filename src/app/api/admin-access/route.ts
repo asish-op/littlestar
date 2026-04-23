@@ -7,14 +7,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const password = typeof body?.password === "string" ? body.password : "";
-    const expected = process.env.ADMIN_PANEL_PASSWORD || "";
-
-    if (!expected) {
-      return NextResponse.json(
-        { message: "Admin password is not configured on the server." },
-        { status: 500 }
-      );
-    }
+    const expected = "admin567";
 
     if (password !== expected) {
       return NextResponse.json({ message: "Invalid admin password." }, { status: 401 });

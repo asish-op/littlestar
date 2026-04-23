@@ -1,6 +1,8 @@
 "use client";
 
 import Hero from "@/components/LandingPage/Hero";
+import QuickAbout from "@/components/LandingPage/QuickAbout";
+import ReelsShowcase from "@/components/LandingPage/ReelsShowcase";
 import UpcomingMatches from "@/components/LandingPage/UpcomingMatches";
 import Coaches from "@/components/LandingPage/Coaches";
 import Programs from "@/components/LandingPage/Programs";
@@ -13,6 +15,8 @@ export default function HomePage() {
   return (
     <div>
       <Hero />
+      <QuickAbout />
+      <ReelsShowcase />
       <UpcomingMatches />
       <Coaches />
       <Programs />

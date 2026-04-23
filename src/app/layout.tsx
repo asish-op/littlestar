@@ -10,10 +10,10 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: {
-    default: "Little Stars Soccer Academy",
-    template: "%s | Little Stars Soccer Academy",
+    default: "Little Stars Football Academy",
+    template: "%s | Little Stars Football Academy",
   },
-  description: "Official website of Little Stars Soccer Academy.",
+  description: "Official website of Little Stars Football Academy.",
   icons: {
     icon: "/lssa-logo.png",
     shortcut: "/lssa-logo.png",
