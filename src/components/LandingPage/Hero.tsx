@@ -1,7 +1,67 @@
-﻿import React from 'react';
-import { ArrowRight, Play, Star } from 'lucide-react';
+﻿"use client";
+
+import React, { FormEvent, useState } from 'react';
+import axios from 'axios';
+import { ArrowRight, Play, Star, X } from 'lucide-react';
 
 const Hero = () => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+  const [isEnrollOpen, setIsEnrollOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState('');
+  const [form, setForm] = useState({
+    playerName: '',
+    parentName: '',
+    ageGroup: '',
+    phone: '',
+    email: '',
+    message: ''
+  });
+
+  const handleEnrollSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!API_URL) {
+      setSubmitError('Enrollment service is unavailable right now.');
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      setSubmitError('');
+      setSubmitSuccess('');
+
+      await axios.post(`${API_URL}/enrollments`, {
+        playerName: form.playerName,
+        parentName: form.parentName,
+        ageGroup: form.ageGroup,
+        phone: form.phone,
+        email: form.email,
+        message: form.message
+      });
+
+      setSubmitSuccess('Enrollment submitted successfully. We will contact you shortly.');
+      setForm({
+        playerName: '',
+        parentName: '',
+        ageGroup: '',
+        phone: '',
+        email: '',
+        message: ''
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setSubmitError(error.response?.data?.error || 'Unable to submit form right now.');
+      } else {
+        setSubmitError('Unable to submit form right now.');
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className="relative min-h-[88vh] md:min-h-[90vh] flex items-center pt-16 md:pt-24 pb-12 md:pb-16 overflow-hidden bg-slate-900">
       <img
@@ -21,21 +81,25 @@ const Hero = () => {
               Little Stars Football Academy
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
               Train with <br />
-              <span className="text-blue-300">Little Stars</span><br />
-              Football Excellence.
-          </h1>
+              <span className="text-blue-300">Sreenidi Deccan</span><br />
+              Football Club.
+            </h1>
             
           <p className="text-base sm:text-lg lg:text-xl text-slate-100 mb-8 md:mb-10 leading-relaxed max-w-xl font-medium">
               Build match-winning habits through structured coaching, competitive exposure, and discipline-led player development at Little Stars Football Academy.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
-            <a href="#contact" className="bg-blue-700 hover:bg-blue-800 text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors flex items-center justify-center gap-2 group">
+            <button
+              type="button"
+              onClick={() => setIsEnrollOpen(true)}
+              className="bg-blue-700 hover:bg-blue-800 text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors flex items-center justify-center gap-2 group"
+            >
                 Enroll Now
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
+            </button>
               
             <a href="#reels" className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors flex items-center justify-center gap-2 border border-white/30 backdrop-blur-sm">
                 <Play className="w-5 h-5 fill-white" />
@@ -57,7 +121,104 @@ const Hero = () => {
             </div>
           </div>
         </div>
+
+        <div className="group hidden lg:flex absolute right-8 top-1/2 -translate-y-1/2 items-center gap-4 rounded-3xl border border-white/35 bg-white/15 px-7 py-6 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:scale-110 hover:-translate-y-[52%] overflow-hidden">
+          <span className="pointer-events-none absolute -left-2/3 top-0 h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/45 to-transparent opacity-0 transition-all duration-700 group-hover:left-[140%] group-hover:opacity-100" />
+          <img
+            src="/lssa-logo.png"
+            alt="Little Stars Football Academy logo"
+            className="h-16 w-16 rounded-full border-2 border-white/50 bg-white object-cover"
+          />
+          <span className="text-4xl font-black text-white">x</span>
+          <img
+            src="/sreenidi-logo.jpg"
+            alt="Sreenidi Deccan Football Club logo"
+            className="h-16 w-16 rounded-full border-2 border-white/50 bg-white object-cover"
+          />
+        </div>
       </div>
+
+      {isEnrollOpen ? (
+        <div className="fixed inset-0 z-[90] bg-black/60 backdrop-blur-sm flex items-center justify-center px-4">
+          <div className="w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-2xl relative">
+            <button
+              type="button"
+              onClick={() => setIsEnrollOpen(false)}
+              aria-label="Close enroll form"
+              className="absolute right-3 top-3 rounded-full p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-700"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <h3 className="text-2xl font-black text-slate-900 mb-1">Enroll Now</h3>
+            <p className="text-slate-600 mb-5">Fill the form and our team will get back to you.</p>
+
+            <form onSubmit={handleEnrollSubmit} className="space-y-4">
+              <div className="grid sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  placeholder="Player Name *"
+                  value={form.playerName}
+                  onChange={(e) => setForm((prev) => ({ ...prev, playerName: e.target.value }))}
+                  className="w-full rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Parent Name"
+                  value={form.parentName}
+                  onChange={(e) => setForm((prev) => ({ ...prev, parentName: e.target.value }))}
+                  className="w-full rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  placeholder="Age Group"
+                  value={form.ageGroup}
+                  onChange={(e) => setForm((prev) => ({ ...prev, ageGroup: e.target.value }))}
+                  className="w-full rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  type="tel"
+                  placeholder="Phone Number *"
+                  value={form.phone}
+                  onChange={(e) => setForm((prev) => ({ ...prev, phone: e.target.value }))}
+                  className="w-full rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <input
+                type="email"
+                placeholder="Email Address"
+                value={form.email}
+                onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
+                className="w-full rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+
+              <textarea
+                placeholder="Message"
+                value={form.message}
+                onChange={(e) => setForm((prev) => ({ ...prev, message: e.target.value }))}
+                className="w-full rounded-xl border border-slate-300 px-4 py-3 min-h-[110px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+
+              {submitError ? <p className="text-sm text-red-600">{submitError}</p> : null}
+              {submitSuccess ? <p className="text-sm text-emerald-700">{submitSuccess}</p> : null}
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className="w-full rounded-xl bg-blue-700 py-3 text-white font-bold transition-colors hover:bg-blue-800 disabled:opacity-60"
+              >
+                {submitting ? 'Submitting...' : 'Submit Enrollment'}
+              </button>
+            </form>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

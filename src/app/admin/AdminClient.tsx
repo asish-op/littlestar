@@ -14,6 +14,7 @@ import AdminsForm from "@/components/AdminPage/AdminsForm";
 import AboutForm from "@/components/AdminPage/AboutForm";
 import Matches from "@/components/AdminPage/Matches";
 import NewsForm from "@/components/AdminPage/NewsForm";
+import Enrollments from "@/components/AdminPage/Enrollments";
 
 const sections = {
   About: <AboutForm />,
@@ -24,6 +25,7 @@ const sections = {
   Testimonials: <Testinomials />,
   Tournaments: <Touranments />,
   News: <NewsForm />,
+  Enrollments: <Enrollments />,
   Admins: <AdminsForm />,
 };
 

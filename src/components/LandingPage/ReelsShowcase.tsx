@@ -2,8 +2,8 @@ import React from 'react';
 
 const ReelsShowcase = () => {
   const reels = [
-    'https://www.instagram.com/reel/DWrUbTPEsOz/embed',
-    'https://www.instagram.com/reel/DO00BMMj1z5/embed',
+    '/reels/DWrUbTPEsOz.mp4',
+    '/reels/DO00BMMj1z5.mp4',
   ];
 
   return (
@@ -15,14 +15,18 @@ const ReelsShowcase = () => {
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 place-items-center">
-          {reels.map((reel) => (
+          {reels.map((reel, index) => (
             <div key={reel} className="w-full max-w-md rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-sm">
-              <iframe
+              <video
                 src={reel}
-                title="Instagram Reel"
-                className="w-full h-[640px]"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                loading="lazy"
+                className="w-full h-[640px] object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                preload="metadata"
+                aria-label={`Training reel ${index + 1}`}
               />
             </div>
           ))}

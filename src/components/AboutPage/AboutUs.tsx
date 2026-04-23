@@ -96,7 +96,7 @@ const AboutUs: React.FC = () => {
         <div className="hero-background">
           <div className="hero-overlay"></div>
           <img 
-            src="https://res.cloudinary.com/dwlccnvfh/image/upload/v1753938453/i7fr4uh4fnzpqbwixfz6_etstwp.webp"
+            src="/about-bg.jpg"
             alt="Coach inspiring young players"
             className="hero-image"
           />
@@ -256,7 +256,7 @@ const AboutUs: React.FC = () => {
 
             <div className="founder-info">
               <h3 className="founder-name">Mohammed Faiz Khan</h3>
-              <p className="founder-role">Founder & Head Coach</p>
+              <p className="founder-role">Founder & CEO</p>
               
               <blockquote className="founder-quote">
                 "Every child has the potential to be extraordinary. My mission is to unlock that potential, 

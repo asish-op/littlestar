@@ -9,6 +9,7 @@ const Locations = () => {
   const academyAddressLine2 = 'Secunderabad';
   const academyAddress = (aboutData as { address?: string } | null)?.address || 'Bowenpally, Secunderabad';
   const academyPhone = (aboutData as { phone?: string; contact?: string } | null)?.phone || aboutData?.contact || '+91 98765 43210';
+  const academyEmail = aboutData?.email || 'info@hydlittlestars.com';
   const academyMapEmbed = 'https://www.openstreetmap.org/export/embed.html?bbox=78.4500%2C17.4600%2C78.4900%2C17.4900&layer=mapnik&marker=17.4746402%2C78.4716947';
 
   if (loading) return null;
@@ -68,7 +69,7 @@ const Locations = () => {
                     <p className="text-slate-600 mt-1">
                       {academyPhone}
                       <br />
-                      admissions@cfacademy.com
+                      {academyEmail}
                     </p>
                   </div>
                 </div>
