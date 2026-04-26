@@ -14,7 +14,7 @@ export interface AboutData {
   carousel_pics: string[];
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const ABOUT_API_URL = '/api/about';
 
 const useAbout = () => {
   const [aboutData, setAboutData] = useState<AboutData | null>(null);
@@ -28,7 +28,7 @@ const useAbout = () => {
       setLoading(true);
       setError(null);
 
-      const response = await axios.get(`${API_URL}/about`, { headers });
+      const response = await axios.get(ABOUT_API_URL, { headers });
       setAboutData(response.data);
     } catch (err: any) {
       console.error('Error fetching about data:', err);

@@ -1,114 +1,144 @@
-﻿import React from 'react';
-import { MapPin, Navigation, Clock, Phone } from 'lucide-react';
-import useAbout from '@/hooks/useAbout';
+﻿'use client';
 
-const Locations = () => {
-  const { aboutData, loading } = useAbout();
-  const academyName = aboutData?.name || 'Little Stars Football Academy';
-  const academyAddressLine1 = 'Bowenpally';
-  const academyAddressLine2 = 'Secunderabad';
-  const academyAddress = (aboutData as { address?: string } | null)?.address || 'Bowenpally, Secunderabad';
-  const academyPhone = (aboutData as { phone?: string; contact?: string } | null)?.phone || aboutData?.contact || '+91 98765 43210';
-  const academyEmail = aboutData?.email || 'info@hydlittlestars.com';
-  const academyMapEmbed = 'https://www.openstreetmap.org/export/embed.html?bbox=78.4500%2C17.4600%2C78.4900%2C17.4900&layer=mapnik&marker=17.4746402%2C78.4716947';
+import React from 'react';
+import dynamic from 'next/dynamic';
+import type { LatLngExpression } from 'leaflet';
 
-  if (loading) return null;
+const MapContainer = dynamic(() => import('react-leaflet').then((mod) => mod.MapContainer), {
+  ssr: false,
+});
+
+const TileLayer = dynamic(() => import('react-leaflet').then((mod) => mod.TileLayer), {
+  ssr: false,
+});
+
+const Marker = dynamic(() => import('react-leaflet').then((mod) => mod.Marker), {
+  ssr: false,
+});
+
+const Popup = dynamic(() => import('react-leaflet').then((mod) => mod.Popup), {
+  ssr: false,
+});
+
+interface Location {
+  id: number;
+  name: string;
+  address: string;
+  area: string;
+  position: { lat: number; lng: number };
+  mapsUrl: string;
+}
+
+const locations: Location[] = [
+  { id: 1, name: 'Cyclone Sports', address: 'Tolichowki', area: 'Tolichowki', position: { lat: 17.4020, lng: 78.4090 }, mapsUrl: 'https://maps.app.goo.gl/oFM8qN3g4tG8N8pm7' },
+  { id: 2, name: 'Leo 11', address: '7 Tombs Road, Tolichowki', area: 'Tolichowki', position: { lat: 17.4025, lng: 78.4095 }, mapsUrl: 'https://maps.app.goo.gl/2LMtiz7EwqP2v2CP7' },
+  { id: 3, name: 'Korner Kick', address: 'Alkhapur', area: 'Alkhapur', position: { lat: 17.3850, lng: 78.4200 }, mapsUrl: 'https://maps.app.goo.gl/VsuD29v43RF28UZQ7' },
+  { id: 4, name: 'One More Game', address: 'Freedom Park, Manikonda', area: 'Manikonda', position: { lat: 17.4100, lng: 78.3800 }, mapsUrl: 'https://maps.app.goo.gl/MAPWXv6cx23GSGd6A' },
+  { id: 5, name: 'Inplay', address: 'Bangla gudda Gagir, SunCity', area: 'SunCity', position: { lat: 17.4300, lng: 78.3900 }, mapsUrl: 'https://maps.app.goo.gl/ucrJ9ETc6f9QKzwL8' },
+  { id: 6, name: 'HOS', address: 'SunCity', area: 'SunCity', position: { lat: 17.4320, lng: 78.3920 }, mapsUrl: 'https://maps.app.goo.gl/uhToaju6RZ7uPRn98' },
+  { id: 7, name: 'Infinity Sports Arena', address: 'Attapur, Piller no 177', area: 'Attapur', position: { lat: 17.3700, lng: 78.4300 }, mapsUrl: 'https://maps.app.goo.gl/CrgJwRhkuGRYweoc9' },
+  { id: 8, name: 'Mag Arena', address: 'Attapur, Piller no 210', area: 'Attapur', position: { lat: 17.3720, lng: 78.4320 }, mapsUrl: 'https://maps.app.goo.gl/QZMXfmLrUnrZnpf39' },
+  { id: 9, name: 'GR Arena', address: 'Khilwat, Old City', area: 'Old City', position: { lat: 17.3500, lng: 78.4500 }, mapsUrl: 'https://maps.app.goo.gl/WumPqfrHVTzFDNRr8' },
+  { id: 10, name: 'Knockout Arena', address: 'Alwal, Secunderabad', area: 'Secunderabad', position: { lat: 17.5000, lng: 78.4900 }, mapsUrl: 'https://maps.app.goo.gl/yV6kNcTJyoE69uru5' },
+  { id: 11, name: 'Olympians Arena', address: 'Location TBD', area: 'Hyderabad', position: { lat: 17.4000, lng: 78.4400 }, mapsUrl: 'https://maps.app.goo.gl/MWz7N2oxbRfbMeFdA' },
+];
+
+const AcademyMap: React.FC = () => {
+  const mapCenter: LatLngExpression = [17.415, 78.43];
+
+  React.useEffect(() => {
+    const configureLeafletIcons = async () => {
+      const L = await import('leaflet');
+
+      // @ts-ignore
+      delete L.Icon.Default.prototype._getIconUrl;
+      L.Icon.Default.mergeOptions({
+        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+      });
+    };
+
+    configureLeafletIcons();
+  }, []);
 
   return (
-    <section className="py-24 bg-slate-50 relative overflow-hidden" id="contact">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="text-center mb-16 relative z-10">
-          <span className="text-blue-600 font-semibold tracking-wider uppercase text-sm mb-3 block">Facilities</span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-            Where Champions Train
-          </h2>
-          <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full mb-6"></div>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            State-of-the-art training facilities designed to maximize player development.
-          </p>
-        </div>
+    <div
+      style={{
+        minHeight: '100vh',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontFamily: 'sans-serif',
+        padding: '2rem',
+        boxSizing: 'border-box',
+        background: '#f0f2f5'
+      }}
+      id="contact"
+    >
+      <h1 style={{ marginBottom: '1.5rem', color: '#333' }}>HLSSA Academies 🗺️</h1>
+      <div style={{ height: '80vh', width: '90%', borderRadius: '15px', overflow: 'hidden', boxShadow: '0 8px 30px rgba(0,0,0,0.15)' }}>
+        <MapContainer
+          center={mapCenter}
+          zoom={12}
+          scrollWheelZoom={false}
+          style={{ height: '100%', width: '100%' }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright"></a>'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch relative z-10">
-          
-          {/* Location Info */}
-          <div className="space-y-8">
-            <div className="bg-white p-8 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col justify-between h-full">
-              <div className="mb-8">
-                <div className="bg-blue-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
-                  <MapPin className="w-8 h-8 text-blue-700" />
+          {locations.map((loc) => (
+            <Marker
+              key={loc.id}
+              position={[loc.position.lat, loc.position.lng] as LatLngExpression}
+              eventHandlers={{
+                mouseover: (e: any) => {
+                  e.target.openPopup();
+                },
+                mouseout: (e: any) => {
+                  e.target.closePopup();
+                },
+                click: () => {
+                  window.open(loc.mapsUrl, '_blank');
+                }
+              }}
+            >
+              <Popup>
+                <div style={{ padding: '1rem', maxWidth: '250px' }}>
+                  <h3 style={{ margin: 0, marginBottom: '0.5rem' }}>{loc.name}</h3>
+                  <p style={{ margin: '0.25rem 0' }}><strong>Address:</strong> {loc.address}</p>
+                  <p style={{ margin: '0.25rem 0' }}><strong>Area:</strong> {loc.area}</p>
+                  <button
+                    style={{
+                      marginTop: '0.5rem',
+                      padding: '0.5rem 1rem',
+                      backgroundColor: '#facc15',
+                      color: '#1e3a8a',
+                      border: 'none',
+                      borderRadius: '9999px',
+                      cursor: 'pointer',
+                      fontSize: '0.9rem',
+                      fontWeight: 'bold'
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(loc.mapsUrl, '_blank');
+                    }}
+                  >
+                    View on Google Maps
+                  </button>
                 </div>
-                <h3 className="text-3xl font-extrabold text-slate-900 mb-2">{academyName}</h3>
-                <p className="text-xl text-slate-600 mb-6 font-medium">
-                  {academyAddressLine1},
-                  <br />
-                  {academyAddressLine2}
-                </p>
-                <div className="h-px w-full bg-slate-100 my-6"></div>
-                <p className="text-slate-600 text-lg leading-relaxed">
-                  {(aboutData as { address?: string } | null)?.address || "Our primary training ground featuring world-class turf, dedicated physical conditioning zones, and tactical briefing rooms."}
-                </p>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-6 pt-6 border-t border-slate-100">
-                <div className="flex gap-4">
-                  <div className="bg-emerald-50 p-3 rounded-xl self-start">
-                    <Clock className="w-6 h-6 text-emerald-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900">Training Hours</h4>
-                    <p className="text-slate-600 mt-1">Mon-Fri: 16:00 - 20:00<br/>Sat-Sun: 07:00 - 11:00</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="bg-indigo-50 p-3 rounded-xl self-start">
-                    <Phone className="w-6 h-6 text-indigo-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900">Contact Desk</h4>
-                    <p className="text-slate-600 mt-1">
-                      {academyPhone}
-                      <br />
-                      {academyEmail}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 pt-8 border-t border-slate-100">
-                <a 
-                  href={`https://maps.google.com/?q=${encodeURIComponent(academyAddress)}`} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-colors shadow-lg"
-                >
-                  <Navigation className="w-5 h-5 fill-white/20" />
-                  Get Directions
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white lg:h-full min-h-[400px] relative">
-            {/* The Map */}
-            <iframe 
-              src={academyMapEmbed}
-              width="100%" 
-              height="100%" 
-              style={{ border: 0, minHeight: '100%' }} 
-              allowFullScreen={true} 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Training Ground Map"
-              className="absolute inset-0"
-            ></iframe>
-          </div>
-
-        </div>
-
+              </Popup>
+            </Marker>
+          ))}
+        </MapContainer>
       </div>
-    </section>
+    </div>
   );
 };
 
-export default Locations;
+export default AcademyMap;

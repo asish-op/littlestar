@@ -2,6 +2,7 @@
 
 import React, { FormEvent, useState } from 'react';
 import axios from 'axios';
+import Image from 'next/image';
 import { ArrowRight, Play, Star, X } from 'lucide-react';
 
 const Hero = () => {
@@ -83,7 +84,7 @@ const Hero = () => {
 
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
               Train with <br />
-              <span className="text-blue-300">Sreenidi Deccan</span><br />
+              <span className="text-blue-300">sreenidhi deccan little stars</span><br />
               Football Club.
             </h1>
             
@@ -122,18 +123,26 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="group hidden lg:flex absolute right-8 top-1/2 -translate-y-1/2 items-center gap-4 rounded-3xl border border-white/35 bg-white/15 px-7 py-6 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:scale-110 hover:-translate-y-[52%] overflow-hidden">
+        <div className="group hidden lg:flex absolute right-8 top-1/2 -translate-y-1/2 items-center gap-5 rounded-3xl border border-white/35 bg-white/15 px-8 py-7 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:scale-110 hover:-translate-y-[52%] overflow-hidden">
           <span className="pointer-events-none absolute -left-2/3 top-0 h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/45 to-transparent opacity-0 transition-all duration-700 group-hover:left-[140%] group-hover:opacity-100" />
-          <img
+          <Image
             src="/lssa-logo.png"
             alt="Little Stars Football Academy logo"
-            className="h-16 w-16 rounded-full border-2 border-white/50 bg-white object-cover"
+            width={224}
+            height={224}
+            quality={100}
+            sizes="(min-width: 1280px) 112px, 96px"
+            className="h-24 w-24 rounded-full border-2 border-white/50 bg-white object-contain p-1"
           />
-          <span className="text-4xl font-black text-white">x</span>
-          <img
+          <span className="text-5xl font-black text-white">x</span>
+          <Image
             src="/sreenidi-logo.jpg"
             alt="Sreenidi Deccan Football Club logo"
-            className="h-16 w-16 rounded-full border-2 border-white/50 bg-white object-cover"
+            width={224}
+            height={224}
+            quality={100}
+            sizes="(min-width: 1280px) 112px, 96px"
+            className="h-24 w-24 rounded-full border-2 border-white/50 bg-white object-contain p-1"
           />
         </div>
       </div>
