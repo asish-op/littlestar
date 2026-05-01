@@ -1,9 +1,11 @@
-﻿import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import { Target, Users, Zap, CheckCircle2 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import EnrollmentModal from './EnrollmentModal';
 
 const Programs = () => {
-  const router = useRouter();
+  const [isTrainingOpen, setIsTrainingOpen] = useState(false);
 
   const programs = [
     {
@@ -30,12 +32,12 @@ const Programs = () => {
   ];
 
   return (
-    <section className="py-24 bg-slate-50" id="programs">
+    <section className="py-16 bg-slate-50" id="programs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="text-center mb-16">
+
+        <div className="text-center mb-10">
           <span className="text-blue-600 font-semibold tracking-wider uppercase text-sm mb-3 block">Training Pathways</span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
             Our Elite Programs
           </h2>
           <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full mb-6"></div>
@@ -59,7 +61,7 @@ const Programs = () => {
               <p className="text-slate-600 mb-6 leading-relaxed">
                 {program.description}
               </p>
-              
+
               <ul className="space-y-3 border-t border-slate-100 pt-6">
                 {program.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-3">
@@ -72,9 +74,8 @@ const Programs = () => {
           ))}
         </div>
 
-        {/* Specialized Training Options */}
-        <div className="mt-20">
-          <div className="text-center mb-12">
+        <div className="mt-12">
+          <div className="text-center mb-8">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase bg-blue-100 text-blue-700 mb-4">
               Advanced Modules
             </span>
@@ -85,35 +86,35 @@ const Programs = () => {
               Beyond our core programs, we offer specialized training sessions to help players excel in specific areas of the game.
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
                 title: "Strength & Conditioning",
                 desc: "Age-appropriate fitness training",
                 badge: "01",
-                icon: "💪",
+                icon: "S&C",
                 accent: "from-emerald-500 to-teal-500"
               },
               {
                 title: "Position-Specific",
                 desc: "Focus on specialized roles",
                 badge: "02",
-                icon: "🎯",
+                icon: "POS",
                 accent: "from-blue-600 to-indigo-600"
               },
               {
                 title: "Goalkeeper Training",
                 desc: "Specialized for goalkeepers",
                 badge: "03",
-                icon: "🧤",
+                icon: "GK",
                 accent: "from-amber-500 to-orange-500"
               },
               {
                 title: "1-on-1 Sessions",
                 desc: "Personalized coaching",
                 badge: "04",
-                icon: "⚡",
+                icon: "1:1",
                 accent: "from-fuchsia-600 to-rose-500"
               }
             ].map((option, idx) => (
@@ -124,7 +125,7 @@ const Programs = () => {
                 <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${option.accent}`}></div>
 
                 <div className="flex items-start justify-between mb-5">
-                  <span className="text-3xl leading-none">{option.icon}</span>
+                  <span className="flex h-10 min-w-10 items-center justify-center rounded-lg bg-slate-100 px-2 text-sm font-black text-slate-700">{option.icon}</span>
                   <span className="text-xs font-black tracking-widest text-slate-400">{option.badge}</span>
                 </div>
 
@@ -134,30 +135,28 @@ const Programs = () => {
             ))}
           </div>
 
-          <div className="mt-10 text-center">
-            <button 
-              onClick={() => router.push('/#contact')} 
+          <div className="mt-8 text-center">
+            <button
+              onClick={() => setIsTrainingOpen(true)}
               className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-3.5 rounded-xl font-bold transition-colors shadow-lg"
             >
               Request Special Training
             </button>
           </div>
         </div>
-
-        <div className="mt-16 border-t border-slate-200 pt-16 text-center">
-          <button 
-            onClick={() => router.push('/#contact')} 
-            className="bg-blue-700 hover:bg-blue-800 text-white px-10 py-5 rounded-2xl font-bold text-lg inline-flex items-center gap-3 transition-colors shadow-xl"
-          >
-            Find The Right Program
-          </button>
-        </div>
-
-
       </div>
+
+      <EnrollmentModal
+        isOpen={isTrainingOpen}
+        onClose={() => setIsTrainingOpen(false)}
+        title="Request Special Training"
+        description="Tell us what type of special training you need and our team will get back to you."
+        submitLabel="Submit Request"
+        successMessage="Special training request submitted successfully. We will contact you shortly."
+        defaultMessage="I am interested in special training."
+      />
     </section>
   );
 };
 
 export default Programs;
-

@@ -35,7 +35,7 @@ export default function Navigation() {
           >
             <img 
               src={logoUrl} 
-              alt="Little Stars Football Academy Logo" 
+              alt="Sreenidhi Deccan Little Stars Academy Logo" 
               className="h-[40px] w-[56px] sm:h-[46px] sm:w-[64px] md:h-[68px] md:w-[94px] object-contain"
               onError={(e) => {
                 e.currentTarget.src = "https://i.ibb.co/JWPpTbt9/hlssa-optimized-1000.png";

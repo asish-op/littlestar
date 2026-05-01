@@ -7,14 +7,13 @@ const ReelsShowcase = () => {
   ];
 
   return (
-    <section id="reels" className="py-16 md:py-20 bg-slate-100">
+    <section id="reels" className="py-10 md:py-12 bg-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <p className="text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-blue-700 mb-3">Latest Reels</p>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">Training Moments</h2>
+        <div className="text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Training Moments</h2>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 place-items-center">
+        <div className="grid gap-6 md:grid-cols-2 place-items-center">
           {reels.map((reel, index) => (
             <div key={reel} className="w-full max-w-md rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-sm">
               <video

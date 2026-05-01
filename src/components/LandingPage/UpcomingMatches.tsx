@@ -21,7 +21,7 @@ const UpcomingMatches = () => {
 
   if (loading) {
     return (
-      <section className="py-20 bg-slate-50">
+      <section className="py-16 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
         </div>
@@ -30,15 +30,15 @@ const UpcomingMatches = () => {
   }
 
   return (
-    <section className="py-24 bg-slate-50 relative overflow-hidden">
+    <section className="py-16 bg-slate-50 relative overflow-hidden">
       {/* Background Decorators */}
       <div className="absolute top-0 left-0 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70 -translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute bottom-0 right-0 w-64 h-64 bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70 translate-x-1/2 translate-y-1/2"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <span className="text-blue-600 font-semibold tracking-wider uppercase text-sm mb-3 block">The Schedule</span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Upcoming <span className="text-blue-600">Matches</span></h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">Upcoming <span className="text-blue-600">Matches</span></h2>
           <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full"></div>
         </div>
 
@@ -48,7 +48,7 @@ const UpcomingMatches = () => {
             <button onClick={() => window.location.reload()} className="px-6 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">Retry</button>
           </div>
         ) : upcomingMatches.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-slate-100 max-w-3xl mx-auto">
+          <div className="text-center py-14 bg-white rounded-3xl shadow-sm border border-slate-100 max-w-3xl mx-auto">
             <Trophy className="w-16 h-16 text-slate-300 mx-auto mb-4" />
             <h3 className="text-2xl font-bold text-slate-800 mb-2">No Upcoming Matches</h3>
             <p className="text-slate-500">The squad is training hard. Check back soon for the next fixture!</p>
@@ -62,9 +62,9 @@ const UpcomingMatches = () => {
                   {/* Home Team */}
                   <div className="flex flex-col items-center flex-1">
                     <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-slate-50 border-4 border-white shadow-md p-3 mb-3 flex items-center justify-center relative z-10 group-hover:scale-110 transition-transform">
-                      <img src="https://i.ibb.co/JWPpTbt9/hlssa-optimized-1000.png" alt="Little Stars Soccer Academy" className="object-contain" />
+                      <img src="https://i.ibb.co/JWPpTbt9/hlssa-optimized-1000.png" alt="Sreenidhi Deccan Little Stars Academy" className="object-contain" />
                     </div>
-                    <span className="font-bold text-slate-900 text-lg">Little Stars Soccer Academy</span>
+                    <span className="font-bold text-slate-900 text-base md:text-lg text-center leading-snug">Sreenidhi Deccan Little Stars Academy</span>
                   </div>
 
                   {/* VS Badge */}
@@ -106,7 +106,7 @@ const UpcomingMatches = () => {
         )}
 
         {upcomingMatches.length > 0 && (
-          <div className="mt-16 text-center">
+          <div className="mt-10 text-center">
             <button 
               onClick={() => router.push('/matches')}
               className="inline-flex items-center gap-2 bg-slate-900 hover:bg-black text-white px-8 py-4 rounded-full font-bold transition-all hover:pr-6 group"

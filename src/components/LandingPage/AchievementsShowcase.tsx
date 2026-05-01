@@ -9,7 +9,7 @@ const AchievementsShowcase = () => {
 
   if (loading) {
     return (
-      <section className="py-24 bg-white">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
         </div>
@@ -18,21 +18,21 @@ const AchievementsShowcase = () => {
   }
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center mb-20">
+        <div className="text-center mb-12">
           <span className="text-amber-600 font-semibold tracking-wider uppercase text-sm mb-3 block">Trophy Cabinet</span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
             Decorated History
           </h2>
           <div className="w-24 h-1.5 bg-amber-500 mx-auto rounded-full mb-6"></div>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Our academy's commitment to excellence has resulted in numerous regional and national titles.
+            Our academy&apos;s commitment to excellence has resulted in numerous regional and national titles.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div className="bg-slate-50 border border-slate-200 rounded-3xl p-8 text-center hover:-translate-y-2 transition-transform">
             <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
               <Trophy className="w-8 h-8 text-amber-600" />
@@ -67,7 +67,7 @@ const AchievementsShowcase = () => {
         </div>
 
         {achievements && achievements.length > 0 && (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 border-t border-slate-100 pt-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 border-t border-slate-100 pt-10">
             {achievements.slice(0, 3).map((achievement, idx) => (
               <div key={idx} className="group cursor-pointer">
                 <div className="relative overflow-hidden rounded-2xl mb-6">
@@ -88,7 +88,7 @@ const AchievementsShowcase = () => {
           </div>
         )}
 
-        <div className="mt-16 text-center">
+        <div className="mt-10 text-center">
           <button 
             onClick={() => router.push('/achievements')}
             className="inline-flex items-center gap-2 text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-8 py-4 rounded-xl font-bold text-lg transition-colors group"

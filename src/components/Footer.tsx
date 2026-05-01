@@ -452,9 +452,9 @@ const Footer: React.FC = () => {
                 <div className="footer-contact-item">
                   <MapPin className="footer-contact-icon" size={18} />
                   <div className="footer-contact-text">
-                    <p>Gachibowli Sports Complex</p>
-                    <p>Hyderabad, Telangana</p>
-                    <p>India - 500032</p>
+                    <p>HQ: Cyclone Sports</p>
+                    <p>8-1-346/41, Sabza Colony, Brindavan Colony</p>
+                    <p>Toli Chowki, Hyderabad, Telangana 500008</p>
                   </div>
                 </div>
 

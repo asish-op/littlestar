@@ -8,7 +8,7 @@ const Testimonials = () => {
 
   if (loading) {
     return (
-      <section className="py-24 bg-slate-900">
+      <section className="py-16 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="w-12 h-12 border-4 border-slate-700 border-t-white rounded-full animate-spin mx-auto"></div>
         </div>
@@ -22,13 +22,13 @@ const Testimonials = () => {
   const prevSlide = () => setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section className="py-24 bg-slate-900 overflow-hidden relative">
+    <section className="py-16 bg-slate-900 overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="flex flex-col lg:flex-row items-center justify-between mb-16 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between mb-10 relative z-10">
           <div className="text-center lg:text-left mb-8 lg:mb-0">
             <span className="text-blue-400 font-semibold tracking-wider uppercase text-sm mb-3 block">Player Feedback</span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">
               Real Experiences
             </h2>
             <div className="w-24 h-1.5 bg-blue-500 mx-auto lg:mx-0 rounded-full"></div>
@@ -65,7 +65,7 @@ const Testimonials = () => {
             </div>
 
             <p className="text-2xl md:text-3xl text-slate-300 font-normal leading-relaxed mb-10 relative z-10 italic">
-              "{testimonials[activeIndex]?.feedback || 'A truly immersive environment that brings out the best in every player. Highly recommended for focused athletes.'}"
+              &ldquo;{testimonials[activeIndex]?.feedback || 'A truly immersive environment that brings out the best in every player. Highly recommended for focused athletes.'}&rdquo;
             </p>
 
             <div className="flex items-center gap-6">

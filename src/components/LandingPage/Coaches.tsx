@@ -17,7 +17,7 @@ const Coaches = () => {
 
   if (loading) {
     return (
-      <section className="py-24 bg-white">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
         </div>
@@ -30,11 +30,11 @@ const Coaches = () => {
   const currentCoach = coaches[currentIndex];
 
   return (
-    <section className="py-24 bg-white" id="coaches">
+    <section className="py-16 bg-white" id="coaches">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
             Our Elite Coaching Staff
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto text-lg">
@@ -43,7 +43,7 @@ const Coaches = () => {
           <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full mt-6"></div>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
           
           <div className="lg:w-1/2 flex justify-center">
             <div className="relative w-72 h-72 md:w-96 md:h-96">
@@ -62,7 +62,7 @@ const Coaches = () => {
             
             <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 mb-8 inline-block lg:block">
               <p className="text-slate-700 text-lg leading-relaxed mb-4">
-                "Professional coach dedicated to player growth, discipline, and high-performance football development."
+                Professional coach dedicated to player growth, discipline, and high-performance football development.
               </p>
               
               <div className="flex items-center justify-center lg:justify-start gap-4">

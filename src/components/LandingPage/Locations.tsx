@@ -30,7 +30,7 @@ interface Location {
 }
 
 const locations: Location[] = [
-  { id: 1, name: 'Cyclone Sports', address: 'Tolichowki', area: 'Tolichowki', position: { lat: 17.4020, lng: 78.4090 }, mapsUrl: 'https://maps.app.goo.gl/oFM8qN3g4tG8N8pm7' },
+  { id: 1, name: 'Cyclone Sports HQ', address: '8-1-346/41, Sabza Colony, Brindavan Colony, Toli Chowki, Hyderabad, Telangana 500008', area: 'Toli Chowki', position: { lat: 17.4020, lng: 78.4090 }, mapsUrl: 'https://maps.app.goo.gl/oFM8qN3g4tG8N8pm7' },
   { id: 2, name: 'Leo 11', address: '7 Tombs Road, Tolichowki', area: 'Tolichowki', position: { lat: 17.4025, lng: 78.4095 }, mapsUrl: 'https://maps.app.goo.gl/2LMtiz7EwqP2v2CP7' },
   { id: 3, name: 'Korner Kick', address: 'Alkhapur', area: 'Alkhapur', position: { lat: 17.3850, lng: 78.4200 }, mapsUrl: 'https://maps.app.goo.gl/VsuD29v43RF28UZQ7' },
   { id: 4, name: 'One More Game', address: 'Freedom Park, Manikonda', area: 'Manikonda', position: { lat: 17.4100, lng: 78.3800 }, mapsUrl: 'https://maps.app.goo.gl/MAPWXv6cx23GSGd6A' },
@@ -50,7 +50,7 @@ const AcademyMap: React.FC = () => {
     const configureLeafletIcons = async () => {
       const L = await import('leaflet');
 
-      // @ts-ignore
+      // @ts-expect-error Leaflet stores this private icon URL resolver on the prototype.
       delete L.Icon.Default.prototype._getIconUrl;
       L.Icon.Default.mergeOptions({
         iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
@@ -63,81 +63,74 @@ const AcademyMap: React.FC = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontFamily: 'sans-serif',
-        padding: '2rem',
-        boxSizing: 'border-box',
-        background: '#f0f2f5'
-      }}
-      id="contact"
-    >
-      <h1 style={{ marginBottom: '1.5rem', color: '#333' }}>HLSSA Academies 🗺️</h1>
-      <div style={{ height: '80vh', width: '90%', borderRadius: '15px', overflow: 'hidden', boxShadow: '0 8px 30px rgba(0,0,0,0.15)' }}>
-        <MapContainer
-          center={mapCenter}
-          zoom={12}
-          scrollWheelZoom={false}
-          style={{ height: '100%', width: '100%' }}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright"></a>'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
+    <section id="contact" className="bg-slate-50 py-14 md:py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
+            Our Branches Across Hyderabad
+          </h2>
+        </div>
 
-          {locations.map((loc) => (
-            <Marker
-              key={loc.id}
-              position={[loc.position.lat, loc.position.lng] as LatLngExpression}
-              eventHandlers={{
-                mouseover: (e: any) => {
-                  e.target.openPopup();
-                },
-                mouseout: (e: any) => {
-                  e.target.closePopup();
-                },
-                click: () => {
-                  window.open(loc.mapsUrl, '_blank');
-                }
-              }}
-            >
-              <Popup>
-                <div style={{ padding: '1rem', maxWidth: '250px' }}>
-                  <h3 style={{ margin: 0, marginBottom: '0.5rem' }}>{loc.name}</h3>
-                  <p style={{ margin: '0.25rem 0' }}><strong>Address:</strong> {loc.address}</p>
-                  <p style={{ margin: '0.25rem 0' }}><strong>Area:</strong> {loc.area}</p>
-                  <button
-                    style={{
-                      marginTop: '0.5rem',
-                      padding: '0.5rem 1rem',
-                      backgroundColor: '#facc15',
-                      color: '#1e3a8a',
-                      border: 'none',
-                      borderRadius: '9999px',
-                      cursor: 'pointer',
-                      fontSize: '0.9rem',
-                      fontWeight: 'bold'
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(loc.mapsUrl, '_blank');
-                    }}
-                  >
-                    View on Google Maps
-                  </button>
-                </div>
-              </Popup>
-            </Marker>
-          ))}
-        </MapContainer>
+        <div className="h-[420px] w-full overflow-hidden rounded-2xl shadow-xl md:h-[540px]">
+          <MapContainer
+            center={mapCenter}
+            zoom={12}
+            scrollWheelZoom={false}
+            style={{ height: '100%', width: '100%' }}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright"></a>'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+
+            {locations.map((loc) => (
+              <Marker
+                key={loc.id}
+                position={[loc.position.lat, loc.position.lng] as LatLngExpression}
+                eventHandlers={{
+                  mouseover: (event: { target: { openPopup: () => void } }) => {
+                    event.target.openPopup();
+                  },
+                  mouseout: (event: { target: { closePopup: () => void } }) => {
+                    event.target.closePopup();
+                  },
+                  click: () => {
+                    window.open(loc.mapsUrl, '_blank');
+                  }
+                }}
+              >
+                <Popup>
+                  <div style={{ padding: '1rem', maxWidth: '250px' }}>
+                    <h3 style={{ margin: 0, marginBottom: '0.5rem' }}>{loc.name}</h3>
+                    <p style={{ margin: '0.25rem 0' }}><strong>Address:</strong> {loc.address}</p>
+                    <p style={{ margin: '0.25rem 0' }}><strong>Area:</strong> {loc.area}</p>
+                    <button
+                      style={{
+                        marginTop: '0.5rem',
+                        padding: '0.5rem 1rem',
+                        backgroundColor: '#facc15',
+                        color: '#1e3a8a',
+                        border: 'none',
+                        borderRadius: '9999px',
+                        cursor: 'pointer',
+                        fontSize: '0.9rem',
+                        fontWeight: 'bold'
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(loc.mapsUrl, '_blank');
+                      }}
+                    >
+                      View on Google Maps
+                    </button>
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
+          </MapContainer>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

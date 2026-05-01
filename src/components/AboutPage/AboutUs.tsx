@@ -357,7 +357,7 @@ const AboutUs: React.FC = () => {
         .about-us-container {
           min-height: 100vh;
           background-color: #f9fafb;
-          margin-top: 2.5rem;
+          margin-top: 0;
         }
 
         /* Hero Section */

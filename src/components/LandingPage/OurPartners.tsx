@@ -35,10 +35,10 @@ const OurPartners = () => {
 
   if (loading) {
     return (
-      <section className="py-24 bg-white border-y border-slate-100">
+      <section className="py-16 bg-white border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight mb-4">Trusted By The Best</h2>
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">Trusted By The Best</h2>
             <div className="w-24 h-1.5 bg-slate-200 mx-auto rounded-full mb-6"></div>
           </div>
 
@@ -53,11 +53,11 @@ const OurPartners = () => {
   }
 
   return (
-    <section className="py-24 bg-white border-y border-slate-100">
+    <section className="py-16 bg-white border-y border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
             Trusted By The Best
           </h2>
           <div className="w-24 h-1.5 bg-slate-200 mx-auto rounded-full mb-6"></div>
@@ -119,9 +119,9 @@ const OurPartners = () => {
         )}
 
         {/* Partnership Benefits */}
-        <div className="mt-24 max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-4">
+        <div className="mt-14 max-w-5xl mx-auto">
+          <div className="text-center mb-8">
+            <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
               Partnership Benefits
             </h3>
             <p className="text-lg text-slate-600">
